@@ -1,0 +1,107 @@
+.rail {
+  background: var(--rail-bg);
+  border-right: 1px solid var(--line);
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 4px 4px;
+}
+
+.rail-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.rail-toggle {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.rail-toggle:hover {
+  color: var(--text);
+  border-color: var(--faint);
+}
+
+.collapsed .rail-title {
+  display: none;
+}
+
+.collapsed .rail-head {
+  justify-content: center;
+}
+
+.collapsed .rail-toggle svg {
+  transform: rotate(180deg);
+}
+
+.rail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  text-align: left;
+}
+
+.rail-item .rail-icon {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 2px solid currentColor;
+  border-radius: 8px;
+}
+
+.rail-item .rail-icon.placeholder {
+  border-style: dashed;
+  border-width: 1.5px;
+}
+
+.rail-item.active {
+  background: #DCEBFB;
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.rail-item.disabled {
+  color: var(--faint);
+  cursor: not-allowed;
+  font-weight: 500;
+}
+
+.collapsed .rail-label {
+  display: none;
+}
+
+.collapsed .rail-item {
+  justify-content: center;
+  padding: 8px;
+}

@@ -1,0 +1,31 @@
+{% from "partials/compare_panel.html" import compare_panel %}
+    <section class="tab-panel hidden" id="panel-compare">
+
+      <div class="toolbar">
+        <button class="button primary" id="play-compare">
+          <span class="glyph">▶</span> Start
+        </button>
+        <button class="button" id="pause-compare">
+          <span class="glyph">❚❚</span> Pause
+        </button>
+        <button class="button" id="reset-compare">Zurücksetzen</button>
+
+        <div class="tool-group">
+          <label for="tempo-compare">Tempo</label>
+          <select id="tempo-compare" class="select small">
+            <option value="0.5">0,5×</option>
+            <option value="1" selected>1×</option>
+            <option value="2">2×</option>
+            <option value="5">5×</option>
+          </select>
+          <span class="info" title="Wie viele Iterationen je Sekunde abgespielt werden. Beide Modelle laufen im Gleichtakt.">i</span>
+        </div>
+
+        <p class="compare-note">Beide Modelle nutzen denselben Datensatz und dieselbe Aufteilung.</p>
+      </div>
+
+      <div class="compare-area">
+{{ compare_panel("a", "A", "blue", "0.02") }}
+{{ compare_panel("b", "B", "red", "0.3") }}
+      </div>
+    </section>

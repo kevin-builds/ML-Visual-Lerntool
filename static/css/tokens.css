@@ -1,0 +1,57 @@
+:root {
+  --blue: #185FA5;
+  --blue-soft: #E7F1FB;
+  --blue-edge: #BFD9F2;
+
+  --violet: #5B52C4;
+  --violet-mid: #7F77DD;
+  --violet-dark: #3C3489;
+  --violet-soft: #EDEBFB;
+  --violet-edge: #CBC6F1;
+
+  --green: #157F5E;
+  --green-mid: #1D9E75;
+  --green-dark: #0F6349;
+  --green-soft: #E3F5EE;
+  --green-edge: #B6E3D3;
+
+  --amber: #A66512;
+  --amber-mid: #BA7517;
+  --amber-soft: #FBF1E0;
+  --amber-edge: #EBD5AE;
+
+  --red: #D85A30;
+
+  --text: #1F1F1D;
+  --muted: #6E6D66;
+  --faint: #A3A199;
+  --line: #E6E4DD;
+  --line-soft: #EFEEE9;
+  --surface: #FCFBF9;
+  --panel: #FFFFFF;
+  --shell: #F2F1ED;
+  --rail-bg: #F4F3F0;
+
+  --radius: 10px;
+  --rail-width: 208px;
+  --rail-collapsed: 68px;
+  --data-width: 304px;
+  --side-width: 372px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--panel);
+  color: var(--text);
+  font-family: system-ui, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+}

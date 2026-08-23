@@ -1,0 +1,172 @@
+    <section class="tab-panel" id="panel-single">
+
+      <div class="status-row">
+
+        <article class="status violet">
+          <header>
+            <span class="status-label">Iteration</span>
+            <span class="info" title="Ein Durchlauf aus Vorhersage, Gradient und Anpassung der Parameter.">i</span>
+          </header>
+          <div class="status-body">
+            <span class="status-value" id="status-iteration">0</span>
+            <div class="stepper">
+              <button id="step-back" title="Eine Iteration zurück">◀</button>
+              <button id="step-forward" title="Eine Iteration vor">▶</button>
+            </div>
+          </div>
+          <footer><span id="status-total">von 300</span> · Einzelschritt</footer>
+        </article>
+
+        <article class="status amber">
+          <header>
+            <span class="status-label">Lernrate <span class="symbol">α</span></span>
+            <span class="info" title="Schrittweite je Iteration. Zu klein bedeutet langsames Lernen, zu groß führt über das Minimum hinaus.">i</span>
+          </header>
+          <div class="status-body">
+            <span class="status-value" id="status-rate">0,100</span>
+          </div>
+          <input type="range" id="rate" class="rate-slider"
+                 min="0.001" max="1.2" step="0.001" value="0.1">
+          <footer class="range-ends"><span>0,001</span><span>1,200</span></footer>
+        </article>
+
+        <article class="status neutral">
+          <header>
+            <span class="status-label">Gradient</span>
+            <span class="info" title="Steigung der Kostenfunktion. Sie zeigt, in welche Richtung und wie stark die Parameter angepasst werden.">i</span>
+          </header>
+          <dl class="gradient">
+            <div><dt>∂J/∂β₀</dt><dd id="grad0">0,00</dd></div>
+            <div><dt>∂J/∂β₁</dt><dd id="grad1">0,00</dd></div>
+          </dl>
+        </article>
+
+        <article class="status blue">
+          <header>
+            <span class="status-label">Gerade</span>
+            <span class="info" title="Die aktuelle Modellgleichung. β₀ ist der Achsenabschnitt, β₁ die Steigung.">i</span>
+          </header>
+          <div class="status-body">
+            <span class="equation" id="equation">ŷ = 0,00 + 0,0000 · x</span>
+          </div>
+          <footer id="coefficients">β₀ = 0,00 · β₁ = 0,0000</footer>
+        </article>
+
+        <article class="status green">
+          <header>
+            <span class="status-label">MSE</span>
+            <span class="info" title="Mittlerer quadratischer Fehler. Je kleiner der Wert, desto besser passt die Gerade zu den Daten.">i</span>
+          </header>
+          <div class="status-body">
+            <span class="status-value" id="status-mse">0,0</span>
+          </div>
+          <footer id="status-state">–</footer>
+        </article>
+
+      </div>
+
+      <div class="toolbar">
+        <button class="button primary" id="play">
+          <span class="glyph">▶</span> Start
+        </button>
+        <button class="button" id="pause">
+          <span class="glyph">❚❚</span> Pause
+        </button>
+        <button class="button" id="reset">Zurücksetzen</button>
+
+        <div class="tool-group">
+          <label for="tempo">Tempo</label>
+          <select id="tempo" class="select small">
+            <option value="0.5">0,5×</option>
+            <option value="1" selected>1×</option>
+            <option value="2">2×</option>
+            <option value="5">5×</option>
+          </select>
+          <span class="info" title="Wie viele Iterationen je Sekunde abgespielt werden.">i</span>
+        </div>
+
+        <div class="tool-group">
+          <label>Startwerte</label>
+          <span class="sub">β₀</span>
+          <input type="number" id="start-beta0" class="number" step="10" value="0">
+          <span class="sub">β₁</span>
+          <input type="number" id="start-beta1" class="number" step="1" value="0">
+          <span class="info" title="Werte, mit denen der Gradientenabstieg beginnt.">i</span>
+        </div>
+      </div>
+
+      <p class="stop-note" id="stop-note">Abbruch: 300 Iterationen oder Gradient &lt; 10⁻¹²</p>
+
+      <div class="work-area">
+
+        <section class="card chart-card">
+          <h3 class="card-title">Datenpunkte und Regressionsgerade</h3>
+          <div class="chart-row">
+            <div id="scatter" class="chart"></div>
+
+            <div class="chart-side">
+              <div class="side-block">
+                <span class="side-title">Anzeige</span>
+                <div class="toggle-row">
+                  <button class="icon-toggle" id="toggle-residuals"
+                          title="Residuen als Quadrate anzeigen">
+                    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                      <rect x="4.5" y="4.5" width="15" height="15" rx="1.5"
+                            fill="none" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                  </button>
+                  <span class="toggle-label">Residuen</span>
+                  <span class="info" title="Das Quadrat über jedem Abstand zeigt, wie stark ein Punkt in den Fehler eingeht.">i</span>
+                </div>
+              </div>
+
+              <div class="side-block">
+                <span class="side-title">Vorhersage</span>
+                <div class="predict-row">
+                  <span class="sub">x =</span>
+                  <input type="number" id="predict-x" class="number wide" placeholder="—">
+                  <span class="unit" id="predict-unit">m²</span>
+                  <span class="info" title="Vorhersage des Modells für einen frei wählbaren x-Wert.">i</span>
+                </div>
+                <p class="predict-result" id="predict-result">ŷ = –</p>
+              </div>
+
+              <div class="side-block">
+                <span class="side-title">Legende</span>
+                <ul class="legend">
+                  <li><span class="dot train"></span> Trainingsdaten</li>
+                  <li><span class="dot test"></span> Testdaten</li>
+                  <li><span class="dot predict"></span> Vorhersage</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="analysis">
+          <div class="stack">
+            <section class="card mini">
+              <h3 class="card-title"><span class="dot green"></span> Fehlerverlauf (MSE je Iteration)
+                <span class="info" title="Der Fehler über die Iterationen hinweg. Ein fallender Verlauf zeigt, dass das Verfahren lernt.">i</span>
+              </h3>
+              <div id="error-chart" class="mini-chart"></div>
+            </section>
+
+            <section class="card mini">
+              <h3 class="card-title"><span class="dot amber"></span> Wirkung der Lernrate
+                <span class="info" title="Bei zu großer Lernrate springt das Verfahren über das Minimum hinweg.">i</span>
+              </h3>
+              <div id="rate-chart" class="mini-chart"></div>
+              <p class="mini-caption" id="rate-caption">Schritte entlang β₁</p>
+            </section>
+          </div>
+
+          <section class="card landscape">
+            <h3 class="card-title"><span class="dot blue"></span> Kostenlandschaft (standardisiert)
+              <span class="info" title="Die Kostenfunktion über beiden Parametern, dargestellt auf den standardisierten Werten. Erst dadurch werden die Höhenlinien zu Kreisen und die Schritte stehen senkrecht darauf. Der Pfad zeigt den Weg zum Minimum.">i</span>
+            </h3>
+            <div id="landscape-chart" class="landscape-chart"></div>
+            <p class="mini-caption" id="landscape-caption">Abstiegspfad bis zum Minimum</p>
+          </section>
+        </div>
+    </section>

@@ -1,0 +1,44 @@
+{% macro compare_panel(key, name, colour, rate) %}
+        <section class="card compare-panel">
+          <h3 class="compare-title"><span class="dot {{ colour }}"></span> Modell {{ name }}</h3>
+
+          <div class="compare-controls">
+            <div class="tool-group grow">
+              <label for="rate-{{ key }}">α</label>
+              <input type="range" id="rate-{{ key }}" class="rate-slider"
+                     min="0.001" max="1.2" step="0.001" value="{{ rate }}">
+              <output id="rate-value-{{ key }}">–</output>
+            </div>
+            <div class="tool-group">
+              <label>Start</label>
+              <span class="sub">β₀</span>
+              <input type="number" id="beta0-{{ key }}" class="number" step="10" value="0">
+              <span class="sub">β₁</span>
+              <input type="number" id="beta1-{{ key }}" class="number" step="1" value="0">
+            </div>
+          </div>
+
+          <div class="compare-status">
+            <article class="status neutral">
+              <span class="status-label">Iteration</span>
+              <span class="status-value small" id="iteration-{{ key }}">0</span>
+              <footer id="total-{{ key }}">von –</footer>
+            </article>
+            <article class="status neutral">
+              <span class="status-label">MSE Test</span>
+              <span class="status-value small" id="mse-test-{{ key }}">–</span>
+              <footer id="state-{{ key }}">–</footer>
+            </article>
+            <article class="status neutral wide">
+              <span class="status-label">Gerade</span>
+              <span class="equation small" id="equation-{{ key }}">ŷ = 0,0 + 0,00 · x</span>
+              <footer id="mse-train-{{ key }}">MSE Training –</footer>
+            </article>
+          </div>
+
+          <div id="scatter-{{ key }}" class="compare-chart"></div>
+
+          <h4 class="compare-subtitle">Fehlerverlauf</h4>
+          <div id="error-{{ key }}" class="compare-error"></div>
+        </section>
+{% endmacro %}

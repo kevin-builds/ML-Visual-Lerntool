@@ -1,0 +1,168 @@
+.work-area {
+  display: grid;
+  gap: 18px;
+}
+
+.analysis {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.stack {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  min-width: 0;
+}
+
+.card.landscape {
+  min-width: 0;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 210px;
+  gap: 20px;
+}
+
+.chart {
+  width: 100%;
+  height: 470px;
+}
+
+.chart-side {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-left: 16px;
+  border-left: 1px solid var(--line-soft);
+}
+
+.side-block {
+  display: grid;
+  gap: 8px;
+}
+
+.side-title {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.toggle-row,
+.predict-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-toggle {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--faint);
+  cursor: pointer;
+}
+
+.icon-toggle.active {
+  background: var(--amber-soft);
+  border-color: var(--amber-edge);
+  color: var(--amber-mid);
+}
+
+.toggle-label {
+  font-size: 13px;
+}
+
+.unit {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.predict-result {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.dot.train { background: var(--violet-mid); border: 1.5px solid var(--violet-dark); }
+.dot.test { background: var(--green-mid); border: 1.5px solid var(--green-dark); }
+.dot.predict { background: transparent; border: 2px solid var(--blue); }
+.dot.green { background: var(--green-mid); }
+.dot.blue { background: var(--blue); }
+.dot.amber { background: var(--amber-mid); }
+
+.stop-note {
+  margin: -8px 0 0;
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.card.mini {
+  padding: 14px 16px;
+  min-width: 0;
+}
+
+.mini-chart {
+  width: 100%;
+  height: 176px;
+}
+
+.landscape-chart {
+  width: 100%;
+  height: 430px;
+}
+
+.mini-caption {
+  margin: 6px 0 0;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--faint);
+}

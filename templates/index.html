@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lineare Regression</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+</head>
+<body>
+
+<div class="accent">
+  <span class="accent-blue"></span>
+  <span class="accent-violet"></span>
+  <span class="accent-green"></span>
+  <span class="accent-amber"></span>
+</div>
+
+<header class="header">
+  <h1>Einfache Lineare Regression</h1>
+</header>
+
+<div class="layout" id="layout">
+{% include "partials/rail.html" %}
+{% include "partials/data_panel.html" %}
+
+  <main class="main">
+
+    <div class="tabs">
+      <button class="tab active" data-tab="single">Einzelmodell</button>
+      <button class="tab" data-tab="compare">Modellvergleich</button>
+    </div>
+
+{% include "partials/single.html" %}
+{% include "partials/compare.html" %}
+
+  </main>
+</div>
+
+<script type="module" src="/static/js/main.js"></script>
+</body>
+</html>

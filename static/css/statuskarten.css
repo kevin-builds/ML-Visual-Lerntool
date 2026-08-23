@@ -1,0 +1,144 @@
+.status-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.status {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 128px;
+}
+
+.status header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.status-label .symbol {
+  text-transform: none;
+}
+
+.status-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex: 1;
+}
+
+.status-value {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.status footer {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.status.violet { background: var(--violet-soft); border-color: var(--violet-edge); }
+.status.violet .status-label,
+.status.violet .status-value { color: var(--violet); }
+
+.status.amber { background: var(--amber-soft); border-color: var(--amber-edge); }
+.status.amber .status-label,
+.status.amber .status-value { color: var(--amber); }
+
+.status.neutral { background: var(--shell); border-color: var(--line); }
+.status.neutral .status-label { color: var(--muted); }
+
+.status.blue { background: var(--blue-soft); border-color: var(--blue-edge); }
+.status.blue .status-label { color: var(--blue); }
+
+.status.green { background: var(--green-soft); border-color: var(--green-edge); }
+.status.green .status-label,
+.status.green .status-value { color: var(--green); }
+
+.stepper {
+  display: flex;
+  gap: 6px;
+}
+
+.stepper button {
+  width: 32px;
+  height: 30px;
+  border: 1px solid var(--violet-edge);
+  border-radius: 7px;
+  background: var(--panel);
+  color: var(--violet);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.stepper button:hover {
+  background: #FFFFFF;
+  border-color: var(--violet-mid);
+}
+
+.rate-slider {
+  width: 100%;
+  margin: 0;
+  accent-color: var(--amber-mid);
+}
+
+.range-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--amber);
+  opacity: 0.8;
+}
+
+.gradient {
+  margin: 0;
+  display: grid;
+  gap: 4px;
+  flex: 1;
+  align-content: center;
+}
+
+.gradient > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.gradient dt {
+  font-size: 15px;
+  color: var(--text);
+}
+
+.gradient dd {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.equation {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.status.blue footer {
+  color: var(--blue);
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}

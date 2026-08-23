@@ -1,0 +1,50 @@
+  <aside class="data-panel">
+    <h2 class="panel-title">Daten</h2>
+
+    <div class="block">
+      <span class="block-label">Ausgewählter Datensatz</span>
+      <select id="dataset" class="select"></select>
+    </div>
+
+    <div class="dropzone" id="dropzone" tabindex="0" role="button">
+      <span class="dropzone-main">CSV hochladen</span>
+      <span class="dropzone-sub">Drag and Drop</span>
+    </div>
+    <input type="file" id="file-input" accept=".csv,text/csv" hidden>
+    <p class="upload-note" id="upload-note"></p>
+
+    <hr class="rule">
+
+    <div class="block">
+      <span class="block-label">Datentabelle</span>
+      <div class="table-frame" id="table-frame">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th id="head-x">x Wohnfläche (m²)</th>
+              <th id="head-y">y Preis (T€)</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <button type="button" class="table-more" id="table-more"></button>
+    </div>
+
+    <hr class="rule">
+
+    <div class="block">
+      <span class="block-label">Aufteilung</span>
+      <div class="segmented">
+        <span class="segment train" id="segment-train">Training 75 %</span>
+        <span class="segment test" id="segment-test">Test 25 %</span>
+      </div>
+      <div class="share-buttons" id="share-buttons">
+        <button type="button" data-share="25">25 %</button>
+        <button type="button" data-share="50">50 %</button>
+        <button type="button" class="active" data-share="75">75 %</button>
+        <button type="button" data-share="100">100 %</button>
+      </div>
+      <p class="caption" id="split-caption">9 Punkte zum Lernen, 3 werden zurückgehalten.</p>
+    </div>
+  </aside>

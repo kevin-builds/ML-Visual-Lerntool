@@ -2,7 +2,7 @@ import { COLORS, LANDSCAPE_MARGIN, PLOT_OPTIONS, TRANSPARENT, font, lockedAxis }
   from "../palette.js";
 import { state, scaledCostAt } from "../state.js";
 
-const GITTER = 46;
+const GRID_STEPS = 46;
 
 function window(element) {
   const box = element.getBoundingClientRect();
@@ -27,18 +27,18 @@ function window(element) {
   };
 }
 
-function achse(from, to) {
-  const werte = [];
-  for (let i = 0; i <= GITTER; i += 1) {
-    werte.push(from + (to - from) * i / GITTER);
+function axisValues(from, to) {
+  const values = [];
+  for (let i = 0; i <= GRID_STEPS; i += 1) {
+    values.push(from + (to - from) * i / GRID_STEPS);
   }
-  return werte;
+  return values;
 }
 
 export function drawLandscape(element) {
   const frame = window(element);
-  const axis0 = achse(frame.x[0], frame.x[1]);
-  const axis1 = achse(frame.y[0], frame.y[1]);
+  const axis0 = axisValues(frame.x[0], frame.x[1]);
+  const axis1 = axisValues(frame.y[0], frame.y[1]);
 
   const grid = axis1.map((beta1) =>
     axis0.map((beta0) => Math.sqrt(scaledCostAt(beta0, beta1))));

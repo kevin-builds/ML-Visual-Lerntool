@@ -21,7 +21,7 @@ let stale = true;
 export const playback = createPlayback({
   length: () => longest() + 1,
   position: () => step,
-  move: (wert) => { step = wert; },
+  move: (value) => { step = value; },
   onFrame: renderCompare,
   speed: () => Number(compareControls.tempo.value),
 });
@@ -111,7 +111,7 @@ export function renderCompare() {
   }
 }
 
-function punkte(points, colour, edge) {
+function points(points, colour, edge) {
   return {
     x: points.x, y: points.y,
     mode: "markers", type: "scatter", hoverinfo: "skip",
@@ -120,21 +120,21 @@ function punkte(points, colour, edge) {
 }
 
 function drawScatter(model, current) {
-  const zustand = current || model.history[0];
+  const entry = current || model.history[0];
   const x = state.axisRange.x;
 
   const traces = [
-    punkte(state.training, COLORS.point, COLORS.pointEdge),
-    punkte(state.test, COLORS.testPoint, COLORS.testEdge),
+    points(state.training, COLORS.point, COLORS.pointEdge),
+    points(state.test, COLORS.testPoint, COLORS.testEdge),
     {
       x: x,
-      y: x.map((wert) => zustand.beta0 + zustand.beta1 * wert),
+      y: x.map((value) => entry.beta0 + entry.beta1 * value),
       mode: "lines", type: "scatter", hoverinfo: "skip",
       line: { color: model.colour, width: 2.6 },
     },
   ];
 
-  const achse = (label, range) => ({
+  const axisValues = (label, range) => ({
     title: { text: label, standoff: 10 },
     range: range, gridcolor: COLORS.grid, zeroline: false, fixedrange: true,
   });
@@ -144,8 +144,8 @@ function drawScatter(model, current) {
     paper_bgcolor: TRANSPARENT,
     plot_bgcolor: COLORS.surface,
     font: font(11, COLORS.muted),
-    xaxis: achse(state.dataset.x_label, state.axisRange.x),
-    yaxis: achse(state.dataset.y_label, state.axisRange.y),
+    xaxis: axisValues(state.dataset.x_label, state.axisRange.x),
+    yaxis: axisValues(state.dataset.y_label, state.axisRange.y),
     showlegend: false,
     dragmode: false,
   };
@@ -156,8 +156,8 @@ function drawScatter(model, current) {
 function drawError(model) {
   const diverged = model.status === "divergiert";
   const colour = diverged ? COLORS.red : COLORS.green;
-  const werte = model.history.map((entry) => entry.mse)
-                             .filter((wert) => wert !== null);
+  const values = model.history.map((entry) => entry.mse)
+                             .filter((value) => value !== null);
 
   const curve = {
     x: [0], y: [model.history[0].mse],
@@ -174,7 +174,7 @@ function drawError(model) {
     font: font(10, COLORS.faint),
     xaxis: lockedAxis({ title: { text: "Iteration", standoff: 6 },
                         range: [0, Math.max(longest(), 1)] }),
-    yaxis: lockedAxis({ range: [0, Math.max(...werte) * 1.08],
+    yaxis: lockedAxis({ range: [0, Math.max(...values) * 1.08],
                         showticklabels: false }),
     showlegend: false,
     dragmode: false,

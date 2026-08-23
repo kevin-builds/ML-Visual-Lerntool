@@ -1,4 +1,4 @@
-const SCHRITTE_JE_SEKUNDE = 40;
+const STEPS_PER_SECOND = 40;
 
 export function createPlayback({ length, position, move, onFrame, speed }) {
   let timer = null;
@@ -17,25 +17,25 @@ export function createPlayback({ length, position, move, onFrame, speed }) {
   function start() {
     stop();
 
-    const letzte = length() - 1;
-    if (position() >= letzte) {
+    const last = length() - 1;
+    if (position() >= last) {
       move(0);
     }
 
-    const proSekunde = SCHRITTE_JE_SEKUNDE * speed();
-    const begonnen = performance.now();
-    const startSchritt = position();
+    const perSecond = STEPS_PER_SECOND * speed();
+    const startedAt = performance.now();
+    const startStep = position();
 
     function frame() {
-      const vergangen = (performance.now() - begonnen) / 1000;
-      move(Math.min(letzte, startSchritt + Math.floor(vergangen * proSekunde)));
+      const elapsed = (performance.now() - startedAt) / 1000;
+      move(Math.min(last, startStep + Math.floor(elapsed * perSecond)));
       onFrame();
 
-      if (position() >= letzte) {
+      if (position() >= last) {
         timer = null;
         return;
       }
-      timer = setTimeout(frame, 1000 / proSekunde);
+      timer = setTimeout(frame, 1000 / perSecond);
     }
 
     frame();

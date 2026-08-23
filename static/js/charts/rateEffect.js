@@ -2,7 +2,7 @@ import { COLORS, MINI_MARGIN, PLOT_OPTIONS, TRANSPARENT, font, lockedAxis }
   from "../palette.js";
 import { state, costAt } from "../state.js";
 
-const PUNKTE = 80;
+const CURVE_POINTS = 80;
 
 function costAlongBeta1(beta1) {
   return costAt(state.ols.beta0, beta1);
@@ -20,8 +20,8 @@ export function drawRateEffect(element) {
   const curveX = [];
   const curveY = [];
 
-  for (let i = 0; i <= PUNKTE; i += 1) {
-    const beta1 = from + (to - from) * i / PUNKTE;
+  for (let i = 0; i <= CURVE_POINTS; i += 1) {
+    const beta1 = from + (to - from) * i / CURVE_POINTS;
     curveX.push(beta1);
     curveY.push(costAlongBeta1(beta1));
   }
@@ -58,10 +58,10 @@ export function drawRateEffect(element) {
 }
 
 export function updateRateEffect(element, step) {
-  const werte = state.history.slice(0, step + 1).map((entry) => entry.beta1);
+  const values = state.history.slice(0, step + 1).map((entry) => entry.beta1);
 
   Plotly.restyle(element, {
-    x: [werte],
-    y: [werte.map(costAlongBeta1)],
+    x: [values],
+    y: [values.map(costAlongBeta1)],
   }, [1]);
 }

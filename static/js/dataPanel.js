@@ -6,10 +6,10 @@ import { fetchExamples, fetchDataset, uploadCsv } from "./api.js";
 const VORSCHAU = 5;
 
 export async function loadExamples() {
-  const namen = await fetchExamples();
+  const names = await fetchExamples();
 
   controls.dataset.innerHTML = "";
-  for (const name of namen) {
+  for (const name of names) {
     const option = document.createElement("option");
     option.textContent = name;
     controls.dataset.appendChild(option);
@@ -17,9 +17,9 @@ export async function loadExamples() {
 }
 
 export async function loadDataset() {
-  const gewaehlt = controls.dataset.selectedOptions[0];
+  const chosen = controls.dataset.selectedOptions[0];
 
-  state.dataset = gewaehlt && gewaehlt.dataset.uploaded === "true"
+  state.dataset = chosen && chosen.dataset.uploaded === "true"
     ? state.uploaded
     : await fetchDataset(controls.dataset.value);
 
@@ -55,29 +55,29 @@ export function showCounts() {
 }
 
 export function renderTable() {
-  const gesamt = state.dataset.x.length;
-  const sichtbar = state.tableExpanded ? gesamt : Math.min(VORSCHAU, gesamt);
+  const total = state.dataset.x.length;
+  const shown = state.tableExpanded ? total : Math.min(VORSCHAU, total);
 
   table.body.innerHTML = "";
-  for (let i = 0; i < sichtbar; i += 1) {
-    const zeile = document.createElement("tr");
-    for (const wert of [state.dataset.x[i], state.dataset.y[i]]) {
-      const zelle = document.createElement("td");
-      zelle.textContent = formatNumber(wert, 0);
-      zeile.appendChild(zelle);
+  for (let i = 0; i < shown; i += 1) {
+    const row = document.createElement("tr");
+    for (const value of [state.dataset.x[i], state.dataset.y[i]]) {
+      const cell = document.createElement("td");
+      cell.textContent = formatNumber(value, 0);
+      row.appendChild(cell);
     }
-    table.body.appendChild(zeile);
+    table.body.appendChild(row);
   }
 
   table.frame.classList.toggle("expanded", state.tableExpanded);
 
-  const rest = gesamt - Math.min(VORSCHAU, gesamt);
-  if (rest <= 0) {
+  const hidden = total - Math.min(VORSCHAU, total);
+  if (hidden <= 0) {
     table.more.textContent = "";
   } else {
     table.more.textContent = state.tableExpanded
       ? "weniger anzeigen"
-      : rest + " weitere Zeilen";
+      : hidden + " weitere Zeilen";
   }
 }
 

@@ -26,8 +26,8 @@ export function predictionInput() {
   if (text === "") {
     return null;
   }
-  const wert = Number(text);
-  return Number.isFinite(wert) ? wert : null;
+  const value = Number(text);
+  return Number.isFinite(value) ? value : null;
 }
 
 export async function train() {
@@ -41,9 +41,9 @@ export async function train() {
   render();
 }
 
-function showMetrics(current, letzte) {
+function showMetrics(current, last) {
   view.iteration.textContent = current.iteration;
-  view.total.textContent = "von " + (state.completed ? letzte : "–");
+  view.total.textContent = "von " + (state.completed ? last : "–");
   view.rate.textContent = formatNumber(Number(controls.rate.value), 3);
   view.grad0.textContent = formatSigned(current.grad0, 2);
   view.grad1.textContent = formatSigned(current.grad1, 2);
@@ -52,7 +52,7 @@ function showMetrics(current, letzte) {
     "β₀ = " + formatNumber(current.beta0, 2) +
     " · β₁ = " + formatNumber(current.beta1, 4);
   view.mse.textContent = formatNumber(current.mse, 0);
-  view.state.textContent = state.step === letzte ? state.status : "–";
+  view.state.textContent = state.step === last ? state.status : "–";
 }
 
 function showPrediction(current, predictX) {
@@ -72,14 +72,14 @@ function showCaptions() {
 
 export function render() {
   const current = currentState();
-  const letzte = lastIndex();
+  const last = lastIndex();
   const predictX = predictionInput();
 
-  if (state.step === letzte) {
+  if (state.step === last) {
     state.completed = true;
   }
 
-  showMetrics(current, letzte);
+  showMetrics(current, last);
   showPrediction(current, predictX);
   showCaptions();
 

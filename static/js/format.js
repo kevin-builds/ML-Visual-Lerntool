@@ -1,8 +1,8 @@
-const LEER = "–";
+const EMPTY = "–";
 
 export function formatNumber(value, decimals = 1) {
   if (value === null || value === undefined || Number.isNaN(value)) {
-    return LEER;
+    return EMPTY;
   }
   return value.toLocaleString("de-DE", {
     minimumFractionDigits: decimals,

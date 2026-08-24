@@ -24,20 +24,37 @@ Info-Symbol mit einer Erklärung.
 
 ## Installation
 
-Die Anleitung gilt für Windows. Die Abweichungen für macOS und Linux stehen
-am Ende des Abschnitts.
+Sechs Schritte. Die Befehle unterscheiden sich je nach verwendeter
+Kommandozeile, deshalb steht jeder Schritt für PowerShell, für die
+Eingabeaufforderung und für Bash da. Eine der drei Spalten auswählen und
+durchgehend dabei bleiben.
+
+Die virtuelle Umgebung wird bewusst nicht aktiviert. Stattdessen wird das
+Python aus `.venv` direkt aufgerufen. Das spart den Aktivierungsschritt und
+umgeht unter PowerShell die Ausführungsrichtlinie, die `Activate.ps1` sonst
+blockieren kann.
 
 **1. Python 3.13 prüfen**
+
+PowerShell und Eingabeaufforderung sowie Git Bash unter Windows:
 
 ```
 py -3.13 --version
 ```
 
-Erscheint eine Fehlermeldung, fehlt die Version. Sie lässt sich mit
-`winget install Python.Python.3.13` nachinstallieren. Danach das Terminal
+Bash unter macOS und Linux:
+
+```
+python3.13 --version
+```
+
+Erscheint eine Fehlermeldung, fehlt die Version. Unter Windows lässt sie sich
+mit `winget install Python.Python.3.13` nachinstallieren. Danach das Terminal
 einmal neu öffnen.
 
 **2. Projekt holen**
+
+In allen drei Kommandozeilen gleich:
 
 ```
 git clone https://github.com/kevin-builds/ML-Visual-Lerntool.git
@@ -45,14 +62,24 @@ git clone https://github.com/kevin-builds/ML-Visual-Lerntool.git
 
 **3. In den Projektordner wechseln**
 
+In allen drei gleich:
+
 ```
 cd ML-Visual-Lerntool
 ```
 
 **4. Virtuelle Umgebung anlegen**
 
+PowerShell, Eingabeaufforderung und Git Bash unter Windows:
+
 ```
 py -3.13 -m venv .venv
+```
+
+Bash unter macOS und Linux:
+
+```
+python3.13 -m venv .venv
 ```
 
 Damit entsteht der Ordner `.venv` mit einer eigenen Python-Installation. Die
@@ -61,29 +88,68 @@ versioniert, auf jedem neuen Gerät ist dieser Schritt also einmal nötig.
 
 **5. Abhängigkeiten installieren**
 
+PowerShell:
+
+```
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+Eingabeaufforderung:
+
 ```
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
+Bash unter Windows:
+
+```
+.venv/Scripts/python.exe -m pip install -r requirements.txt
+```
+
+Bash unter macOS und Linux:
+
+```
+.venv/bin/python -m pip install -r requirements.txt
+```
+
 **6. Server starten**
+
+PowerShell:
+
+```
+.\.venv\Scripts\python.exe server.py
+```
+
+Eingabeaufforderung:
 
 ```
 .venv\Scripts\python.exe server.py
 ```
 
+Bash unter Windows:
+
+```
+.venv/Scripts/python.exe server.py
+```
+
+Bash unter macOS und Linux:
+
+```
+.venv/bin/python server.py
+```
+
 Anschließend <http://127.0.0.1:8000> im Browser öffnen, mehr ist nicht nötig.
 Beendet wird der Server im Terminal mit `Strg + C`.
 
-### macOS und Linux
+### Warum die Pfade sich unterscheiden
 
-Den Launcher `py` gibt es dort nicht. Die Schritte 1, 4, 5 und 6 lauten:
+Unter Windows legt `venv` seine Programme in `Scripts` ab, unter macOS und
+Linux in `bin`. Bash erwartet außerdem Schrägstriche statt umgekehrter
+Schrägstriche, auch wenn es unter Windows läuft.
 
-```
-python3.13 --version
-python3.13 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python server.py
-```
+PowerShell braucht das vorangestellte `.\`, weil es Befehle sonst nur im
+Suchpfad sucht und nicht im aktuellen Ordner. In der Eingabeaufforderung ist
+es nicht nötig, stört dort aber auch nicht.
 
 ### Wenn etwas klemmt
 
@@ -149,10 +215,31 @@ braucht keine weitere Serveranfrage.
 
 Das Skript im Ordner `test` rechnet dieselben Datensätze mit dem
 Gradientenabstieg und mit der Methode der kleinsten Quadrate und stellt die
-Steigungen gegenüber:
+Steigungen gegenüber. Aufruf wie bei Schritt 6 der Installation, nur mit dem
+Skript statt `server.py`.
+
+Eingabeaufforderung:
 
 ```
 .venv\Scripts\python.exe test\compare_ols_gradient.py
+```
+
+PowerShell:
+
+```
+.\.venv\Scripts\python.exe test\compare_ols_gradient.py
+```
+
+Bash unter Windows:
+
+```
+.venv/Scripts/python.exe test/compare_ols_gradient.py
+```
+
+Bash unter macOS und Linux:
+
+```
+.venv/bin/python test/compare_ols_gradient.py
 ```
 
 Beide Verfahren stimmen auf allen vier Beispieldatensätzen bis auf eine

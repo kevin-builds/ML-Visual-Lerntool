@@ -24,41 +24,80 @@ Info-Symbol mit einer Erklärung.
 
 ## Installation
 
-Vorausgesetzt wird Python 3.13. Ob es installiert ist, prüft unter Windows
+Die Anleitung gilt für Windows. Die Abweichungen für macOS und Linux stehen
+am Ende des Abschnitts.
+
+**1. Python 3.13 prüfen**
 
 ```
 py -3.13 --version
 ```
 
-Danach das Projekt holen und eine virtuelle Umgebung anlegen:
+Erscheint eine Fehlermeldung, fehlt die Version. Sie lässt sich mit
+`winget install Python.Python.3.13` nachinstallieren. Danach das Terminal
+einmal neu öffnen.
+
+**2. Projekt holen**
 
 ```
 git clone https://github.com/kevin-builds/ML-Visual-Lerntool.git
+```
+
+**3. In den Projektordner wechseln**
+
+```
 cd ML-Visual-Lerntool
+```
+
+**4. Virtuelle Umgebung anlegen**
+
+```
 py -3.13 -m venv .venv
 ```
 
-Abhängigkeiten installieren:
+Damit entsteht der Ordner `.venv` mit einer eigenen Python-Installation. Die
+Pakete landen dort und nicht im System. Der Ordner wird nicht mit
+versioniert, auf jedem neuen Gerät ist dieser Schritt also einmal nötig.
+
+**5. Abhängigkeiten installieren**
 
 ```
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-Unter macOS und Linux heißen die beiden letzten Befehle
-
-```
-python3.13 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-```
-
-## Starten
+**6. Server starten**
 
 ```
 .venv\Scripts\python.exe server.py
 ```
 
-Der Server läuft danach auf <http://127.0.0.1:8000>. Die Adresse im Browser
-öffnen, mehr ist nicht nötig. Beendet wird er im Terminal mit `Strg + C`.
+Anschließend <http://127.0.0.1:8000> im Browser öffnen, mehr ist nicht nötig.
+Beendet wird der Server im Terminal mit `Strg + C`.
+
+### macOS und Linux
+
+Den Launcher `py` gibt es dort nicht. Die Schritte 1, 4, 5 und 6 lauten:
+
+```
+python3.13 --version
+python3.13 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python server.py
+```
+
+### Wenn etwas klemmt
+
+**Die Versionen in `requirements.txt` sind exakt festgelegt.** Deshalb
+ausdrücklich `py -3.13` verwenden und nicht nur `py`. Ist eine neuere
+Python-Version der Standard, gibt es für sie unter Umständen kein fertiges
+Paket und die Installation bricht ab.
+
+**`Address already in use`** bedeutet, dass Port 8000 belegt ist. Entweder
+läuft der Server bereits, oder ein anderes Programm nutzt den Port. Die
+Portnummer steht am Ende von `server.py`.
+
+**Die Seite lädt, aber nichts reagiert.** Meist eine alte Fassung im
+Browsercache. Einmal mit `Strg + F5` hart neu laden.
 
 ## Eigene Daten verwenden
 

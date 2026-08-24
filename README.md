@@ -96,6 +96,11 @@ test/                  Vergleich von Gradientenabstieg und OLS
 reference/             eigenständiges Minimalbeispiel ohne Weboberfläche
 ```
 
+Der Ordner `reference` enthält ein einzelnes Skript, das dieselbe Regression
+ohne Weboberfläche rechnet und das Ergebnis als Grafik ausgibt. Es gehört
+nicht zur Anwendung und ist deshalb nicht in `requirements.txt` aufgeführt.
+Wer es ausführen möchte, installiert zusätzlich `matplotlib`.
+
 Der gesamte Verlauf des Gradientenabstiegs wird beim Start einer Berechnung
 einmal vollständig ermittelt und an den Browser übertragen. Das Springen
 zwischen Iterationen ist dadurch reines Indexieren in einem Array und

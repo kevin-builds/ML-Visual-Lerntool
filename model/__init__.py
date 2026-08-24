@@ -1,15 +1,12 @@
 from model import gradient_descent, linear_regression, ols, scaling
 from model.gradient_descent import status
-from model.linear_regression import mse, predict, residuals
 
 DEFAULT_LEARNING_RATE = 0.1
 DEFAULT_ITERATIONS = gradient_descent.SAFETY_LIMIT
-LEARNING_RATE_LIMIT = 1.0
 
 __all__ = [
-    "train", "status", "predict", "residuals", "mse",
-    "linear_regression", "gradient_descent", "ols", "scaling",
-    "DEFAULT_LEARNING_RATE", "DEFAULT_ITERATIONS", "LEARNING_RATE_LIMIT",
+    "train", "status", "ols", "scaling",
+    "DEFAULT_LEARNING_RATE", "DEFAULT_ITERATIONS",
 ]
 
 

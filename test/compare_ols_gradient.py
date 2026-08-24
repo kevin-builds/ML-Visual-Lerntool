@@ -3,20 +3,12 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import numpy as np
-
 import data
 import model
 
 TRAINING_SHARE = 0.75
 SEED = 0
 LEARNING_RATE = 0.1
-
-
-def reference_ols(x, y):
-    design = np.column_stack([np.ones(len(x)), x])
-    beta0, beta1 = np.linalg.lstsq(design, y, rcond=None)[0]
-    return beta0, beta1
 
 
 def compare(name):
@@ -32,7 +24,6 @@ def compare(name):
     final = history[-1]
 
     ols0, ols1 = model.ols.solve(x_train, y_train)
-    ref0, ref1 = reference_ols(x_train, y_train)
 
     return {
         "name": name,
@@ -42,7 +33,6 @@ def compare(name):
         "status": model.status(history),
         "gradient": (final["beta0"], final["beta1"]),
         "ols": (ols0, ols1),
-        "reference": (ref0, ref1),
     }
 
 

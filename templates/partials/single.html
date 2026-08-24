@@ -5,7 +5,7 @@
         <article class="status violet">
           <header>
             <span class="status-label">Iteration</span>
-            <span class="info" title="Ein Durchlauf aus Vorhersage, Gradient und Anpassung der Parameter.">i</span>
+            <span class="info" title="Ein Durchlauf des Gradientenabstiegs. Das Verfahren berechnet für die aktuelle Gerade den Fehler und den Gradienten und passt danach beide Parameter einmal an. Der Zähler zeigt, bei welchem Durchlauf die Anzeige gerade steht. Über die Pfeile lässt sich einzeln vor und zurück springen, ohne dass neu gerechnet wird.">i</span>
           </header>
           <div class="status-body">
             <span class="status-value" id="status-iteration">0</span>
@@ -20,7 +20,7 @@
         <article class="status amber">
           <header>
             <span class="status-label">Lernrate <span class="symbol">α</span></span>
-            <span class="info" title="Schrittweite je Iteration. Zu klein bedeutet langsames Lernen, zu groß führt über das Minimum hinaus.">i</span>
+            <span class="info" title="Bestimmt, wie weit die Parameter bei jeder Iteration verschoben werden. Der Gradient gibt die Richtung vor, die Lernrate die Schrittweite. Ein kleiner Wert führt sicher, aber langsam zum Ziel und braucht viele Iterationen. Ein großer Wert ist schneller, kann aber über das Minimum hinausschießen. Ab etwa 1,0 wachsen die Ausschläge immer weiter an und das Verfahren divergiert.">i</span>
           </header>
           <div class="status-body">
             <span class="status-value" id="status-rate">0,100</span>
@@ -33,7 +33,7 @@
         <article class="status neutral">
           <header>
             <span class="status-label">Gradient</span>
-            <span class="info" title="Steigung der Kostenfunktion. Sie zeigt, in welche Richtung und wie stark die Parameter angepasst werden.">i</span>
+            <span class="info" title="Die beiden partiellen Ableitungen der Kostenfunktion nach den Parametern. Sie geben an, wie stark sich der Fehler ändert, wenn man den jeweiligen Parameter erhöht. Das Vorzeichen bestimmt die Richtung des nächsten Schritts, der Betrag die Steilheit. Je näher das Verfahren am Minimum liegt, desto kleiner werden beide Werte.">i</span>
           </header>
           <dl class="gradient">
             <div><dt>∂J/∂β₀</dt><dd id="grad0">0,00</dd></div>
@@ -44,7 +44,7 @@
         <article class="status blue">
           <header>
             <span class="status-label">Gerade</span>
-            <span class="info" title="Die aktuelle Modellgleichung. β₀ ist der Achsenabschnitt, β₁ die Steigung.">i</span>
+            <span class="info" title="Die aktuelle Modellgleichung. β₀ ist der Achsenabschnitt, also der Wert, den das Modell bei x gleich null vorhersagt. β₁ ist die Steigung und gibt an, um wie viel die Vorhersage wächst, wenn x um eins zunimmt. Beide Werte ändern sich mit jeder Iteration, bis die Gerade möglichst gut zu den Trainingsdaten passt.">i</span>
           </header>
           <div class="status-body">
             <span class="equation" id="equation">ŷ = 0,00 + 0,0000 · x</span>
@@ -55,7 +55,7 @@
         <article class="status green">
           <header>
             <span class="status-label">MSE</span>
-            <span class="info" title="Mittlerer quadratischer Fehler. Je kleiner der Wert, desto besser passt die Gerade zu den Daten.">i</span>
+            <span class="info" title="Mittlerer quadratischer Fehler. Für jeden Trainingspunkt wird der senkrechte Abstand zur Geraden quadriert, danach wird der Mittelwert gebildet. Durch das Quadrieren fallen große Abweichungen stärker ins Gewicht als kleine. Genau dieser Wert wird vom Gradientenabstieg minimiert. Kleiner ist besser, null hieße, die Gerade trifft jeden Punkt exakt.">i</span>
           </header>
           <div class="status-body">
             <span class="status-value" id="status-mse">0,0</span>
@@ -82,7 +82,7 @@
             <option value="2">2×</option>
             <option value="5">5×</option>
           </select>
-          <span class="info" title="Wie viele Iterationen je Sekunde abgespielt werden.">i</span>
+          <span class="info" title="Wie schnell der bereits berechnete Verlauf abgespielt wird. Die Werte sind Vielfache der Grundgeschwindigkeit, 0,5× läuft halb so schnell, 5× fünfmal so schnell. Das ändert nur die Anzeige und nicht das Ergebnis.">i</span>
         </div>
 
         <div class="tool-group">
@@ -91,7 +91,7 @@
           <input type="number" id="start-beta0" class="number" step="10" value="0">
           <span class="sub">β₁</span>
           <input type="number" id="start-beta1" class="number" step="1" value="0">
-          <span class="info" title="Werte, mit denen der Gradientenabstieg beginnt.">i</span>
+          <span class="info" title="Die Werte, mit denen der Gradientenabstieg startet. Voreingestellt ist null für beide, die Gerade beginnt also flach auf der x-Achse. Da die Kostenfunktion nur ein einziges Minimum besitzt, landet jeder Startpunkt am selben Ziel. Unterschiedlich sind nur der Weg dorthin und die Anzahl der nötigen Iterationen.">i</span>
         </div>
       </div>
 
@@ -116,7 +116,7 @@
                     </svg>
                   </button>
                   <span class="toggle-label">Residuen</span>
-                  <span class="info" title="Das Quadrat über jedem Abstand zeigt, wie stark ein Punkt in den Fehler eingeht.">i</span>
+                  <span class="info" title="Das Residuum ist der senkrechte Abstand zwischen einem Datenpunkt und der Geraden. Eingeblendet wird über jedem Abstand ein Quadrat mit genau dieser Kantenlänge. Seine Fläche entspricht dem quadrierten Fehler, den dieser eine Punkt beisteuert. Der mittlere quadratische Fehler ist der Durchschnitt aller dieser Flächen.">i</span>
                 </div>
               </div>
 
@@ -126,7 +126,7 @@
                   <span class="sub">x =</span>
                   <input type="number" id="predict-x" class="number wide" placeholder="—">
                   <span class="unit" id="predict-unit">m²</span>
-                  <span class="info" title="Vorhersage des Modells für einen frei wählbaren x-Wert.">i</span>
+                  <span class="info" title="Setzt einen frei gewählten x-Wert in die aktuelle Geradengleichung ein und gibt das Ergebnis zurück. Das zeigt, wozu das trainierte Modell dient, nämlich zur Vorhersage für Werte, die in den Daten gar nicht vorkommen. Der berechnete Punkt wird im Diagramm mit Hilfslinien markiert.">i</span>
                 </div>
                 <p class="predict-result" id="predict-result">ŷ = –</p>
               </div>
@@ -147,14 +147,14 @@
           <div class="stack">
             <section class="card mini">
               <h3 class="card-title"><span class="dot green"></span> Fehlerverlauf (MSE je Iteration)
-                <span class="info" title="Der Fehler über die Iterationen hinweg. Ein fallender Verlauf zeigt, dass das Verfahren lernt.">i</span>
+                <span class="info" title="Der Fehler über alle Iterationen hinweg. Ein steiler Abfall am Anfang und ein flaches Ende sind typisch, weil die Schritte kleiner werden, je näher das Verfahren am Minimum liegt. Fällt die Kurve nicht, sondern steigt sie an und wird rot, ist die Lernrate zu groß gewählt und das Verfahren divergiert.">i</span>
               </h3>
               <div id="error-chart" class="mini-chart"></div>
             </section>
 
             <section class="card mini">
               <h3 class="card-title"><span class="dot amber"></span> Wirkung der Lernrate
-                <span class="info" title="Bei zu großer Lernrate springt das Verfahren über das Minimum hinweg.">i</span>
+                <span class="info" title="Ein Querschnitt durch die Kostenfunktion entlang β₁, bei festgehaltenem β₀. Die Kurve ist eine Parabel, ihr tiefster Punkt ist das gesuchte Minimum. Eingezeichnet sind die tatsächlichen Schritte. Bei kleiner Lernrate wandern sie langsam nach unten, bei zu großer springen sie zwischen den beiden Wänden hin und her und entfernen sich vom Minimum.">i</span>
               </h3>
               <div id="rate-chart" class="mini-chart"></div>
               <p class="mini-caption" id="rate-caption">Schritte entlang β₁</p>
@@ -163,7 +163,7 @@
 
           <section class="card landscape">
             <h3 class="card-title"><span class="dot blue"></span> Kostenlandschaft (standardisiert)
-              <span class="info" title="Die Kostenfunktion über beiden Parametern, dargestellt auf den standardisierten Werten. Erst dadurch werden die Höhenlinien zu Kreisen und die Schritte stehen senkrecht darauf. Der Pfad zeigt den Weg zum Minimum.">i</span>
+              <span class="info" title="Die Kostenfunktion über beiden Parametern gleichzeitig, dargestellt als Höhenlinien. Innen liegt das Minimum, nach außen steigt der Fehler. Gezeigt werden die standardisierten Werte, erst dadurch werden die Höhenlinien zu Kreisen und die Schritte stehen senkrecht darauf. Der Pfad ist der tatsächliche Weg des Verfahrens vom Startpunkt bis zum Minimum.">i</span>
             </h3>
             <div id="landscape-chart" class="landscape-chart"></div>
             <p class="mini-caption" id="landscape-caption">Abstiegspfad bis zum Minimum</p>

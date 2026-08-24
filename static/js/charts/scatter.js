@@ -8,6 +8,8 @@ function pointTrace(points, colour, edge, name) {
     mode: "markers",
     type: "scatter",
     hovertemplate: "%{x} · %{y}<extra>" + name + "</extra>",
+    // Hintergrund bleibt die Punktfarbe, nur die Schrift wird weiss.
+    hoverlabel: { font: { color: COLORS.white } },
     marker: { size: 11, color: colour, line: { color: edge, width: 1.4 } },
   };
 }
